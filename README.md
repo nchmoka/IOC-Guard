@@ -49,7 +49,7 @@ POST /ioc_guard/api/check-ip/
 Body: { "ip": "8.8.8.8" }
 Check Hash:
 POST /ioc_guard/api/check-hash/
-Body: { "hash": "44d88612fea8a8f36de82e1278abb02f" }
+Body: { "hash_value": "44d88612fea8a8f36de82e1278abb02f" }
 ```
 
 ## Testing
