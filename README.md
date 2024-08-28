@@ -9,6 +9,8 @@ IoC-Guard is a Django-based application that automates the process of analyzing 
 1. Clone the Repository
 git clone https://github.com/nchmoka/IOC-Guard.git
 cd IoC-Guard
+cd IoC-Guard
+
 
 2. Create a Virtual Environment
 python -m venv venv

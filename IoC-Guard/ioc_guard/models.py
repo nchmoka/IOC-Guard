@@ -1,5 +1,7 @@
 from django.db import models
 import os
+from django.dispatch import receiver
+from django.db.models.signals import post_delete
 from django.utils.html import format_html
 from django.urls import reverse
 
@@ -11,14 +13,6 @@ class Report(models.Model):
     def __str__(self):
         return f"{self.report_type} Report - {self.created_at}"
 
-    def delete(self, *args, **kwargs):
-        # Delete the file from the filesystem
-        if self.file_path and os.path.isfile(self.file_path):
-            os.remove(self.file_path)
-        
-        # Call the superclass delete method to delete the model instance
-        super().delete(*args, **kwargs)
-
     def download_link(self):
         if self.file_path:
             filename = os.path.basename(self.file_path)
@@ -27,3 +21,16 @@ class Report(models.Model):
         return "No file available"
 
     download_link.short_description = "Download Report"
+
+@receiver(post_delete, sender=Report)
+def delete_report_file(sender, instance, **kwargs):
+    # Ensure the file is deleted after the model instance is deleted
+    if instance.file_path:
+        if os.path.isfile(instance.file_path):
+            try:
+                os.remove(instance.file_path)
+                print(f"Deleted file: {instance.file_path}")
+            except Exception as e:
+                print(f"Error deleting file: {instance.file_path}. Exception: {e}")
+        else:
+            print(f"File not found: {instance.file_path}")
