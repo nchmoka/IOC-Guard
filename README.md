@@ -7,7 +7,7 @@ IoC-Guard is a Django-based application that automates the process of analyzing 
 ```bash
 
 1. Clone the Repository
-git clone https://github.com/your-username/IoC-Guard.git
+git clone https://github.com/nchmoka/IOC-Guard.git
 cd IoC-Guard
 cd IoC-Guard
 
